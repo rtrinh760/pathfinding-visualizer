@@ -1,6 +1,7 @@
 import { useState, useEffect, startTransition } from "react";
 import "./Pathfinder.css";
 import Square from "./Square";
+import { DFS, getNeighbors } from "./algorithms/DFSAlgorithm";
 
 const ROWS = 10;
 const COLS = 15;
@@ -14,7 +15,7 @@ type SquareProps = {
   h?: number;
 };
 
-const NewGrid = () => {
+const Pathfind = () => {
   const [grid, setGrid] = useState<any[]>([]);
 
   useEffect(() => {
@@ -40,14 +41,15 @@ const NewGrid = () => {
   };
 
   function gridSquare(this: any, i: number, j: number) {
-    this.x = i;
-    this.y = j;
-    this.visited = false;
+    this.row = i;
+    this.col = j;
     this.g = 0;
     this.f = 0;
     this.h = 0;
-    this.start = this.x === 0 && this.y === 0;
-    this.end = this.x === ROWS-1 && this.y === COLS-1;
+    this.visited = false;
+    this.previous = null;
+    this.start = this.row === 0 && this.col === 0;
+    this.end = this.row === ROWS-1 && this.col === COLS-1;
   }
 
   return (
@@ -67,5 +69,5 @@ const NewGrid = () => {
 };
 
 export function Pathfinder() {
-  return <div className="grid">{<NewGrid />}</div>;
+  return <div className="grid">{<Pathfind />}</div>;
 }
