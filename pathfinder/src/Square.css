@@ -6,10 +6,10 @@
     background: white;
 }
 
-.start {
-    fill: green;
+.square-start {
+    background-color: green;
 }
 
-.end {
-    fill: red;
+.square-end {
+    background-color: red;
 }

@@ -11,7 +11,7 @@ type SquareProps = {
 };
 
 const Square = ({ isStart, isEnd }: SquareProps) => {
-  const cellType = isStart ? "start" : isEnd ? "end" : "";
+  const cellType = isStart ? "square-start" : isEnd ? "square-end" : "";
   return <div className={`square ${cellType}`}></div>
 };
 

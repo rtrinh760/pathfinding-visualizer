@@ -29,7 +29,6 @@ const NewGrid = () => {
 
     createSquares(initialGrid);
     setGrid(initialGrid);
-    console.log(grid);
   };
 
   const createSquares = (grid: any) => {
@@ -48,7 +47,7 @@ const NewGrid = () => {
     this.f = 0;
     this.h = 0;
     this.start = this.x === 0 && this.y === 0;
-    this.end = this.x = ROWS-1 && this.y === COLS-1;
+    this.end = this.x === ROWS-1 && this.y === COLS-1;
   }
 
   return (
