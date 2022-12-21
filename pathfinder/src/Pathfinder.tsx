@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 import "./Pathfinder.css";
 import Square from "./Square";
 
 const ROWS = 10;
-const COLS = 10;
+const COLS = 15;
 
 type SquareProps = {
   squareRow: number;
@@ -22,9 +22,9 @@ const NewGrid = () => {
   }, []);
 
   const createGrid = () => {
-    const initialGrid: any = new Array(COLS);
-    for (let i = 0; i < COLS; i++) {
-      initialGrid[i] = new Array(ROWS);
+    const initialGrid: any = new Array(ROWS);
+    for (let i = 0; i < ROWS; i++) {
+      initialGrid[i] = new Array(COLS);
     }
 
     createSquares(initialGrid);
@@ -43,9 +43,12 @@ const NewGrid = () => {
   function gridSquare(this: any, i: number, j: number) {
     this.x = i;
     this.y = j;
+    this.visited = false;
     this.g = 0;
     this.f = 0;
     this.h = 0;
+    this.start = this.x === 0 && this.y === 0;
+    this.end = this.x = ROWS-1 && this.y === COLS-1;
   }
 
   return (
@@ -54,7 +57,8 @@ const NewGrid = () => {
         return (
           <div key={rowIndex} className="row">
             {row.map((col: any, colIndex: any) => {
-              return <Square key={colIndex} />;
+              const { start, end } = col;
+              return <Square key={colIndex} isStart={start} isEnd={end} />;
             })}
           </div>
         );

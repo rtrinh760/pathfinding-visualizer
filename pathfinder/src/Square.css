@@ -1,7 +1,15 @@
 .square {
     width: 30px;
     height: 30px;
-    border: 2px solid black;
+    border: 1px solid black;
     display: inline-flex;
     background: white;
+}
+
+.start {
+    fill: green;
+}
+
+.end {
+    fill: red;
 }
