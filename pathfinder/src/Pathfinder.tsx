@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Pathfinder.css";
 import Square from "./Square";
-import { DFS, getNeighbors } from "./algorithms/DFSAlgorithm";
+import { DFS } from "./algorithms/DFSAlgorithm";
 
 const ROWS = 10;
 const COLS = 15;

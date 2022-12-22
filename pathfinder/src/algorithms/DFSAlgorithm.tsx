@@ -9,26 +9,28 @@ export function DFS(start: any, end: any, grid: any) {
     if (!currentCell.visited) {
       currentCell.visited = true;
       const { row, col } = currentCell;
-      console.log(`current location: ${row}, ${col}`);
+      console.log(currentCell);
 
       const currentNeighbors = getNeighbors(currentCell, grid);
-      currentNeighbors.forEach((neighbor) => {
+
+      for (let i = 0; i < currentNeighbors.length; i++) {
+        const neighbor = currentNeighbors[i];
+
         stack.push(neighbor);
         neighbor.previous = currentCell;
+
         if (neighbor === end) {
           console.log("Path found!");
-          foundPath = true;
+          console.log(getPathFound(end));
+          return true;
         }
-      });
-      if (foundPath) {
-        return true;
       }
     }
   }
   return false;
 }
 
-export function getNeighbors(cell: any, grid: any) {
+function getNeighbors(cell: any, grid: any) {
   let neighbors = [];
   let { row, col } = cell;
   if (row > 0) neighbors.push(grid[row - 1][col]);
@@ -36,7 +38,18 @@ export function getNeighbors(cell: any, grid: any) {
   if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
   if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
 
-  neighbors.filter((neighbor) => !neighbor.visited);
+  neighbors = neighbors.filter((neighbor) => !neighbor.visited);
 
   return neighbors;
+}
+
+function getPathFound(endCell: any) {
+  let currentCell = endCell;
+  let pathFound = [];
+
+  while (currentCell != null) {
+    pathFound.unshift(currentCell);
+    currentCell = currentCell.previous;
+  }
+  return pathFound;
 }
