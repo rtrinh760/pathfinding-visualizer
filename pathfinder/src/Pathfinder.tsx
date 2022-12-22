@@ -1,4 +1,4 @@
-import { useState, useEffect, startTransition } from "react";
+import { useState, useEffect } from "react";
 import "./Pathfinder.css";
 import Square from "./Square";
 import { DFS, getNeighbors } from "./algorithms/DFSAlgorithm";
@@ -6,36 +6,20 @@ import { DFS, getNeighbors } from "./algorithms/DFSAlgorithm";
 const ROWS = 10;
 const COLS = 15;
 
-type SquareProps = {
-  squareRow: number;
-  squareCol: number;
-  isFree: boolean;
-  g?: number;
-  f?: number;
-  h?: number;
-};
-
 const Pathfind = () => {
   const [grid, setGrid] = useState<any[]>([]);
 
   useEffect(() => {
-    createGrid();
+    const tempGrid = createGrid();
+    const startCell = tempGrid[0][0];
+    const endCell = tempGrid[ROWS-1][COLS-1];
+    console.log(DFS(startCell, endCell, tempGrid));
   }, []);
 
-  const createGrid = () => {
-    const initialGrid: any = new Array(ROWS);
-    for (let i = 0; i < ROWS; i++) {
-      initialGrid[i] = new Array(COLS);
-    }
-
-    createSquares(initialGrid);
-    setGrid(initialGrid);
-  };
-
-  const createSquares = (grid: any) => {
+  const createSquares = (initialGrid: any) => {
     for (let i = 0; i < ROWS; i++) {
       for (let j = 0; j < COLS; j++) {
-        grid[i][j] = new (gridSquare as any)(i, j);
+        initialGrid[i][j] = new (gridSquare as any)(i, j);
       }
     }
   };
@@ -49,8 +33,19 @@ const Pathfind = () => {
     this.visited = false;
     this.previous = null;
     this.start = this.row === 0 && this.col === 0;
-    this.end = this.row === ROWS-1 && this.col === COLS-1;
+    this.end = this.row === ROWS - 1 && this.col === COLS - 1;
   }
+
+  const createGrid = () => {
+    const initialGrid: any = new Array(ROWS);
+    for (let i = 0; i < ROWS; i++) {
+      initialGrid[i] = new Array(COLS);
+    }
+
+    createSquares(initialGrid);
+    setGrid(initialGrid);
+    return initialGrid;
+  };
 
   return (
     <div>
@@ -59,7 +54,7 @@ const Pathfind = () => {
           <div key={rowIndex} className="row">
             {row.map((col: any, colIndex: any) => {
               const { start, end } = col;
-              return <Square key={colIndex} isStart={start} isEnd={end} />;
+              return <Square key={colIndex} isStart={start} isEnd={end} row={rowIndex} col={colIndex} />;
             })}
           </div>
         );
