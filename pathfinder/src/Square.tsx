@@ -3,15 +3,16 @@ import "./Square.css";
 type SquareProps = {
   row: number;
   col: number;
-  isStart: boolean;
-  isEnd: boolean;
+  start: boolean;
+  end: boolean;
+  wall: boolean;
   g?: number;
   f?: number;
   h?: number;
 };
 
-const Square = ({ isStart, isEnd, row, col }: SquareProps) => {
-  const cellType = isStart ? "square-start" : isEnd ? "square-end" : "";
+const Square = ({ start, end, wall, row, col }: SquareProps) => {
+  const cellType = start ? "square-start" : end ? "square-end" : wall ? "square-wall" : "";
   return <div className={`square ${cellType}`} id={`square-${row}-${col}`}></div>
 };
 

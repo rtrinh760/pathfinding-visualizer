@@ -7,11 +7,11 @@
 }
 
 .square-start {
-    background-color: green;
+    background-color: rgb(128, 255, 128);
 }
 
 .square-end {
-    background-color: red;
+    background-color: rgb(255, 77, 77);
 }
 
 .square-visited {
@@ -33,17 +33,17 @@
     }
   
     50% {
-      background-color: peachpuff;
+      background-color: rgb(248, 250, 121);
     }
   
     75% {
-      transform: scale(1.2);
-      background-color: peachpuff;
+      transform: scale(1.1);
+      background-color: rgb(248, 250, 121);
     }
   
     100% {
       transform: scale(1);
-      background-color: peachpuff;
+      background-color: rgb(248, 250, 121);
     }
   }
   
@@ -53,7 +53,7 @@
   
   .square-shortest-path {
     animation-name: shortestPath;
-    animation-duration: 1.5s;
+    animation-duration: 1s;
     animation-timing-function: ease-out;
     animation-delay: 0;
     animation-direction: alternate;
@@ -65,16 +65,16 @@
   @keyframes shortestPath {
     0% {
       transform: scale(0.6);
-      background-color: aquamarine;
+      background-color: rgb(85, 91, 250);
     }
   
     50% {
       transform: scale(1.2);
-      background-color: aquamarine;
+      background-color: rgb(85, 91, 250);
     }
   
     100% {
       transform: scale(1);
-      background-color: aquamarine;
+      background-color: rgb(85, 91, 250);
     }
   }
