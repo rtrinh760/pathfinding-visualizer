@@ -63,28 +63,26 @@ const Pathfind = () => {
   };
 
   const visualizeAlgorithm = () => {
-    visualizeVisitedCells();
-    setTimeout(() => {
-      visualizeShortestPath(path);
-    }, 5000);
-  };
-
-  const visualizeVisitedCells = () => {
-    console.log(visitedCells);
     for (let i = 0; i <= visitedCells.length; i++) {
-      const visitedSquare = visitedCells[i];
-      console.log(visitedSquare.row + " " + visitedSquare.col)
-      setTimeout(() => {
-        document.getElementById(
-          `square-${visitedSquare.row}-${visitedSquare.col}`
-        )!.className = "square square-visited";
-      }, i * 30);
-      // if (!visitedSquare.start && !visitedSquare.end) {
-      // }
+      if (i === visitedCells.length) {
+        visualizeShortestPath(i, path);
+      } else {
+        const visitedSquare = visitedCells[i];
+
+        if (!visitedSquare.start && !visitedSquare.end) {
+          // Sets an increased delay for each visited cell
+          setTimeout(() => {
+            document.getElementById(
+              `square-${visitedSquare.row}-${visitedSquare.col}`
+            )!.className = "square square-visited";
+          }, i * 30);
+        }
+      }
     }
   };
-  const visualizeShortestPath = (pathFound: any[]) => {
-    for (let i = 0; i <= pathFound.length; i++) {
+  const visualizeShortestPath = (curCellDelay: number, pathFound: any[]) => {
+    // Keep track of delay to animate the found path afterwards (could be a better way of doing this)
+    for (let i = 0; i < pathFound.length; i++) {
       const shortestPathSquare = pathFound[i];
 
       if (!shortestPathSquare.start && !shortestPathSquare.end) {
@@ -92,10 +90,10 @@ const Pathfind = () => {
           document.getElementById(
             `square-${shortestPathSquare.row}-${shortestPathSquare.col}`
           )!.className = "square square-shortest-path";
-        }, i * 30);
+        }, curCellDelay * 30);
+        curCellDelay++;
       }
     }
-    console.log("ran");
   };
 
   return (
