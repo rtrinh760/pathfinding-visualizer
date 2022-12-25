@@ -1,15 +1,14 @@
 export function DFS(start: any, end: any, grid: any) {
   let stack = [];
-  let foundPath = false;
+  let path: any = [];
+  let visitedSquares: any = [];
   stack.push(start);
-  console.log(end.row + " " + end.col);
 
   while (stack.length != 0) {
     const currentCell = stack.pop();
-    if (!currentCell.visited) {
+    if (!currentCell.visited && !currentCell.wall) {
       currentCell.visited = true;
-      const { row, col } = currentCell;
-      console.log(currentCell);
+      visitedSquares.push(currentCell);
 
       const currentNeighbors = getNeighbors(currentCell, grid);
 
@@ -20,14 +19,13 @@ export function DFS(start: any, end: any, grid: any) {
         neighbor.previous = currentCell;
 
         if (neighbor === end) {
-          console.log("Path found!");
-          console.log(getPathFound(end));
-          return true;
+          path = getPathFound(end);
+          return [ path, visitedSquares ];
         }
       }
     }
   }
-  return false;
+  return [ path, visitedSquares ];
 }
 
 function getNeighbors(cell: any, grid: any) {
