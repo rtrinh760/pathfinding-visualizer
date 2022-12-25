@@ -1,6 +1,6 @@
 import { getNeighbors, getPathFound } from "./GridMethods";
 
-export function DFS(start: any, end: any, grid: any) {
+export function depthFirstSearch(start: any, end: any, grid: any) {
   let stack = [];
   let path: any = [];
   let visitedSquares: any = [];
