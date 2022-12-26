@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import "./Pathfinder.css";
+import "./Square.css";
 import Square from "./Square";
-import { DFS } from "./algorithms/DFSAlgorithm";
+import { depthFirstSearch } from "./algorithms/DFSAlgorithm";
+import { breadthFirstSearch } from "./algorithms/BFSAlgorithm";
 
 const ROWS = 20;
 const COLS = 30;
@@ -17,11 +19,13 @@ const Pathfind = () => {
 
   const runAlgorithm = () => {
     const tempGrid = createGrid();
+    const [startCell, endCell] = randomizeStartAndEnd(tempGrid);
     setTimeout(() => {
-      const startCell = tempGrid[0][0];
-      const endCell = tempGrid[ROWS - 1][COLS - 1];
-
-      const [completePath, visitedSquares] = DFS(startCell, endCell, tempGrid);
+      const [completePath, visitedSquares] = breadthFirstSearch(
+        startCell,
+        endCell,
+        tempGrid
+      );
       setPath(completePath);
       setVisitedCells(visitedSquares);
     }, 5);
@@ -43,13 +47,34 @@ const Pathfind = () => {
     this.h = 0;
     this.visited = false;
     this.previous = null;
-    this.start = this.row === 0 && this.col === 0;
-    this.end = this.row === ROWS - 1 && this.col === COLS - 1;
+    this.start = false;
+    this.end = false;
     this.wall = false;
     if (Math.random() < 0.2 && (!this.start || !this.end)) {
       this.wall = true;
     }
   }
+
+  const setStart = (gridSquare: any) => {
+    gridSquare.start = true;
+    return gridSquare;
+  };
+
+  const setEnd = (gridSquare: any) => {
+    gridSquare.end = true;
+    return gridSquare;
+  };
+
+  const randomizeStartAndEnd = (grid: typeof gridSquare[][]) => {
+    let randomSquareRow = Math.floor(Math.random() * grid.length);
+    let randomSquareCol = Math.floor(Math.random() * grid.length);
+    let startSquare = setStart(grid[randomSquareRow][randomSquareCol]);
+
+    randomSquareRow = Math.floor(Math.random() * grid.length);
+    randomSquareCol = Math.floor(Math.random() * grid.length);
+    let endSquare = setEnd(grid[randomSquareRow][randomSquareCol]);
+    return [startSquare, endSquare];
+  };
 
   const createGrid = () => {
     const initialGrid: any = new Array(ROWS);
@@ -96,16 +121,23 @@ const Pathfind = () => {
     }
   };
 
+  // class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
   return (
     <div className="visualizer">
-      <button className="visualize-btn" onClick={visualizeAlgorithm}>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={visualizeAlgorithm}
+      >
         Visualize Path
+      </button>
+      <button className="clear-btn" onClick={visualizeAlgorithm}>
+        Clear
       </button>
 
       <div>
         {grid.map((row, rowIndex) => {
           return (
-            <div key={rowIndex} className="row">
+            <div key={rowIndex} className="flex">
               {row.map((col: any, colIndex: any) => {
                 const { start, end, wall } = col;
                 return (
