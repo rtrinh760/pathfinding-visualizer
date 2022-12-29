@@ -1,4 +1,4 @@
-import { Pathfinder } from './src/Pathfinder'
+import { Pathfinder } from './components/Pathfinder'
 
 function App() {
   return (
