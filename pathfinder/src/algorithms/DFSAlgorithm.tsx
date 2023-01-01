@@ -1,16 +1,17 @@
 import { getNeighbors, getPathFound } from "./GridMethods";
+import GridCell from "../components/GridCell";
 
-export function depthFirstSearch(start: any, end: any, grid: any) {
-  let stack = [];
-  let path: any = [];
-  let visitedSquares: any = [];
+export function depthFirstSearch(start: GridCell, end: GridCell, grid: GridCell[][]) {
+  let stack: GridCell[] = [];
+  let path: GridCell[] = [];
+  let visitedCells: GridCell[] = [];
   stack.push(start);
 
   while (stack.length != 0) {
-    const currentCell = stack.pop();
-    if (!currentCell.visited && !currentCell.wall) {
+    const currentCell: GridCell = stack.pop() as GridCell;
+    if (!(currentCell.isVisited()) && !(currentCell.isWall())) {
       currentCell.visited = true;
-      visitedSquares.push(currentCell);
+      visitedCells.push(currentCell);
 
       const currentNeighbors = getNeighbors(currentCell, grid);
 
@@ -22,10 +23,10 @@ export function depthFirstSearch(start: any, end: any, grid: any) {
 
         if (neighbor === end) {
           path = getPathFound(end);
-          return [ path, visitedSquares ];
+          return [path, visitedCells];
         }
       }
     }
   }
-  return [ path, visitedSquares ];
+  return [path, visitedCells];
 }

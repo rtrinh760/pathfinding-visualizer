@@ -1,16 +1,17 @@
 import { getNeighbors, getPathFound } from "./GridMethods";
+import GridCell from "../components/GridCell";
 
-export function breadthFirstSearch(start: any, end: any, grid: any) {
-  let queue = [];
-  let path: any = [];
-  let visitedSquares: any = [];
+export function breadthFirstSearch(start: GridCell, end: GridCell, grid: GridCell[][]) {
+  let queue: GridCell[] = [];
+  let path: GridCell[] = [];
+  let visitedCells: GridCell[] = [];
   queue.push(start);
 
   while (queue.length != 0) {
-    const currentCell = queue.shift();
-    if (!currentCell.visited && !currentCell.wall) {
+    const currentCell = queue.shift() as GridCell;
+    if (!currentCell.isVisited() && !currentCell.isWall()) {
       currentCell.visited = true;
-      visitedSquares.push(currentCell);
+      visitedCells.push(currentCell);
 
       const currentNeighbors = getNeighbors(currentCell, grid);
 
@@ -22,10 +23,10 @@ export function breadthFirstSearch(start: any, end: any, grid: any) {
 
         if (neighbor === end) {
           path = getPathFound(end);
-          return [path, visitedSquares];
+          return [path, visitedCells];
         }
       }
     }
   }
-  return [path, visitedSquares];
+  return [path, visitedCells];
 }
