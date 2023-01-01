@@ -31,7 +31,7 @@
 
 .cell-visited {
   animation-name: visitedAnimation;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
@@ -80,16 +80,24 @@
 @keyframes shortestPath {
   0% {
     transform: scale(0.6);
-    background-color: rgb(85, 91, 250);
+    background-color: rgba(85, 209, 250, 0.5);
+  }
+
+  25% {
+    background-color: rgb(85, 160, 250);
   }
 
   50% {
     transform: scale(1.2);
-    background-color: rgb(85, 91, 250);
+    background-color: rgb(85, 100, 250);
+  }
+
+  75% {
+    background-color: rgb(85, 100, 250);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgb(85, 91, 250);
+    background-color: rgb(85, 100, 250);
   }
 }
