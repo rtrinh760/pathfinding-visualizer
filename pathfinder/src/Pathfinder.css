@@ -673,3 +673,7 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
+
+.disabled\:opacity-80:disabled {
+  opacity: 0.8;
+}
