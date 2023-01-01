@@ -8,7 +8,7 @@ import { breadthFirstSearch } from "../algorithms/BFSAlgorithm";
 const Pathfind = () => {
   const ROWS = 20;
   const COLS = 40;
-  const wallChance = 0.34
+  const wallChance = 0.30
 
   const initializeGrid = () => {
     const initialGrid: any = new Array(ROWS);
@@ -25,8 +25,6 @@ const Pathfind = () => {
   };
 
   const [grid, _] = useState<GridCell[][]>(initializeGrid());
-  const [path, setPath] = useState<GridCell[]>([]);
-  const [visitedCells, setVisitedCells] = useState<GridCell[]>([]);
   const [disableButtons, setDisableButtons] = useState<boolean>(false);
 
   useEffect(() => {
@@ -41,8 +39,6 @@ const Pathfind = () => {
       endCell,
       grid
     );
-    setPath(completePath);
-    setVisitedCells(visitedCells);
 
     return [completePath, visitedCells];
   };
@@ -83,6 +79,8 @@ const Pathfind = () => {
 
   const visualizeAlgorithm = () => {
     const [path, visitedCells] = runAlgorithm();
+    // To disable buttons during animation
+    const timeToAnimate = (path.length + visitedCells.length) * 30
 
     setTimeout(() => {
       for (let i = 0; i <= visitedCells.length; i++) {
@@ -102,6 +100,8 @@ const Pathfind = () => {
         }
       }
     }, 10);
+    
+    return timeToAnimate;
   };
 
   const visualizeShortestPath = (
@@ -123,18 +123,26 @@ const Pathfind = () => {
     }
   };
 
-  const handleDisable = () => {
-    setDisableButtons(true);
+  const handleDisable = (button: any) => {
+    button.disabled = true
   };
+
+  const handleEnable = (button: any) => {
+    setDisableButtons(false);
+  }
 
   return (
     <div className="visualizer">
       <div className="mt-4 mb-4 space-x-2 flex justify-center">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-0.5 rounded disabled:opacity-80"
+          disabled={disableButtons}
           onClick={() => {
-            visualizeAlgorithm();
-            handleDisable()
+            setDisableButtons(true)
+            const timeToAnimate = visualizeAlgorithm();
+            setTimeout(() => {
+              setDisableButtons(false)
+            }, timeToAnimate)
           }}
         >
           Visualize Path
