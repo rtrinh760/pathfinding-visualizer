@@ -1,19 +1,21 @@
 import "../Cell.css";
+import GridCell from "./GridCell";
 
 type CellProps = {
   row: number;
   col: number;
-  start: boolean;
-  end: boolean;
-  wall: boolean;
-  g?: number;
-  f?: number;
-  h?: number;
+  gridCell: GridCell;
 };
 
-const Cell = ({ start, end, wall, row, col }: CellProps) => {
-  const cellType = start ? "cell-start" : end ? "cell-end" : wall ? "cell-wall" : "";
-  return <div className={`cell ${cellType}`} id={`cell-${row}-${col}`}></div>
+const Cell = ({ row, col, gridCell }: CellProps) => {
+  const cellType = gridCell.isStart()
+    ? "cell-start"
+    : gridCell.isEnd()
+    ? "cell-end"
+    : gridCell.isWall()
+    ? "cell-wall"
+    : "";
+  return <div className={`cell ${cellType}`} id={`cell-${row}-${col}`}></div>;
 };
 
 export default Cell;
