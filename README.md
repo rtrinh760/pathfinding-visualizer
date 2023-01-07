@@ -9,10 +9,10 @@ This project contains:
 - TailwindCSS to stylize the components 
 
 ## Visualization of A* Search
-![](https://github.com/rt-rocket/pathfinding_visualizer/blob/main/pathfinder/public/astar.gif)
+![](https://github.com/rt-rocket/pathfinding-visualizer/blob/main/public/astar.gif)
 
 ## Visualization of BFS
-![](https://github.com/rt-rocket/pathfinding_visualizer/blob/main/pathfinder/public/bfs.png)
+![](https://github.com/rt-rocket/pathfinding-visualizer/blob/main/public/bfs.png)
 
 ## Depth-First-Search
 
