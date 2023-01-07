@@ -23,6 +23,9 @@ export default class GridCell {
   public reset() {
     this.previous = null;
     this.visited = false;
+    this.g = Infinity;
+    this.f = Infinity;
+    this.h = 0;
   }
 
   public setStart() {

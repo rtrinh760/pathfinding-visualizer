@@ -4,6 +4,7 @@ import Cell from "./Cell";
 import GridCell from "./GridCell";
 import { depthFirstSearch } from "../algorithms/DFSAlgorithm";
 import { breadthFirstSearch } from "../algorithms/BFSAlgorithm";
+import { AStar } from "../algorithms/AStar";
 import Dropdown from "./Dropdown";
 
 const Pathfind = () => {
@@ -60,6 +61,8 @@ const Pathfind = () => {
         endCell,
         grid
       );
+    } else if (curAlgorithm === "astar") {
+      [completePath, visitedCells] = AStar(startCell, endCell, grid);
     } else {
       [completePath, visitedCells] = depthFirstSearch(startCell, endCell, grid);
     }
@@ -154,7 +157,7 @@ const Pathfind = () => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-0.5 rounded disabled:opacity-80"
           disabled={disableButtons}
           onClick={() => {
-            handleDisable()
+            handleDisable();
             const timeToAnimate = visualizeAlgorithm();
             setTimeout(() => {
               setDisableButtons(false);
@@ -190,7 +193,7 @@ const Pathfind = () => {
               <button
                 onClick={() => {
                   handleOpen();
-                  handleDisable()
+                  handleDisable();
                 }}
                 disabled={disableButtons}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-80"
