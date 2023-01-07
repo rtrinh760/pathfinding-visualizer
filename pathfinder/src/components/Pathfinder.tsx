@@ -1,14 +1,15 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, Fragment } from "react";
 import "../Pathfinder.css";
 import Cell from "./Cell";
 import GridCell from "./GridCell";
 import { depthFirstSearch } from "../algorithms/DFSAlgorithm";
 import { breadthFirstSearch } from "../algorithms/BFSAlgorithm";
+import Dropdown from "./Dropdown";
 
 const Pathfind = () => {
   const ROWS = 20;
   const COLS = 40;
-  const wallChance = 0.30
+  const wallChance = 0.3;
 
   const initializeGrid = () => {
     const initialGrid: any = new Array(ROWS);
@@ -26,6 +27,20 @@ const Pathfind = () => {
 
   const [grid, _] = useState<GridCell[][]>(initializeGrid());
   const [disableButtons, setDisableButtons] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [curAlgorithm, setCurAlgorithm] = useState<string>("dfs");
+
+  const handleDisable = () => {
+    setDisableButtons(!disableButtons);
+  };
+
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
+  const handleMenuItem = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     createGrid(wallChance);
@@ -34,11 +49,20 @@ const Pathfind = () => {
   const runAlgorithm = () => {
     const startCell = grid[5][5];
     const endCell = grid[ROWS - 5][COLS - 5];
-    const [completePath, visitedCells] = breadthFirstSearch(
-      startCell,
-      endCell,
-      grid
-    );
+    let completePath: GridCell[] = [];
+    let visitedCells: GridCell[] = [];
+
+    if (curAlgorithm === "dfs") {
+      [completePath, visitedCells] = depthFirstSearch(startCell, endCell, grid);
+    } else if (curAlgorithm === "bfs") {
+      [completePath, visitedCells] = breadthFirstSearch(
+        startCell,
+        endCell,
+        grid
+      );
+    } else {
+      [completePath, visitedCells] = depthFirstSearch(startCell, endCell, grid);
+    }
 
     return [completePath, visitedCells];
   };
@@ -80,7 +104,7 @@ const Pathfind = () => {
   const visualizeAlgorithm = () => {
     const [path, visitedCells] = runAlgorithm();
     // To disable buttons during animation
-    const timeToAnimate = (path.length + visitedCells.length) * 30
+    const timeToAnimate = path.length * 30 + visitedCells.length * 30;
 
     setTimeout(() => {
       for (let i = 0; i <= visitedCells.length; i++) {
@@ -100,7 +124,7 @@ const Pathfind = () => {
         }
       }
     }, 10);
-    
+
     return timeToAnimate;
   };
 
@@ -108,7 +132,7 @@ const Pathfind = () => {
     curCellDelay: number,
     pathFound: GridCell[]
   ) => {
-    // Keep track of delay to animate the found path afterwards (could be a better way of doing this)
+    // Keep track of delay to animate the found path afterwards
     for (let i = 0; i < pathFound.length; i++) {
       const shortestPathCell = pathFound[i];
 
@@ -123,14 +147,6 @@ const Pathfind = () => {
     }
   };
 
-  const handleDisable = (button: any) => {
-    button.disabled = true
-  };
-
-  const handleEnable = (button: any) => {
-    setDisableButtons(false);
-  }
-
   return (
     <div className="visualizer">
       <div className="mt-4 mb-4 space-x-2 flex justify-center">
@@ -138,11 +154,11 @@ const Pathfind = () => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-0.5 rounded disabled:opacity-80"
           disabled={disableButtons}
           onClick={() => {
-            setDisableButtons(true)
+            handleDisable()
             const timeToAnimate = visualizeAlgorithm();
             setTimeout(() => {
-              setDisableButtons(false)
-            }, timeToAnimate)
+              setDisableButtons(false);
+            }, timeToAnimate);
           }}
         >
           Visualize Path
@@ -166,6 +182,58 @@ const Pathfind = () => {
         >
           New Maze
         </button>
+
+        <Dropdown
+          open={open}
+          trigger={
+            <Fragment>
+              <button
+                onClick={() => {
+                  handleOpen();
+                  handleDisable()
+                }}
+                disabled={disableButtons}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-80"
+              >
+                Select Algorithm
+              </button>
+            </Fragment>
+          }
+          menu={[
+            <button
+              onClick={() => {
+                handleMenuItem();
+                setCurAlgorithm("dfs");
+                setDisableButtons(false);
+              }}
+              className="px-2 block w-full hover:bg-blue-500 hover:text-white"
+              /**outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32 */
+              /**rounded-sm px-3 py-1 hover:bg-gray-100 */
+            >
+              Depth-First-Search
+            </button>,
+            <button
+              className="px-1 block w-full hover:bg-blue-500 hover:text-white"
+              onClick={() => {
+                handleMenuItem();
+                setCurAlgorithm("bfs");
+                setDisableButtons(false);
+              }}
+            >
+              Breadth-First-Search
+            </button>,
+            <button
+              className="px-1 block w-full hover:bg-blue-500 hover:text-white"
+              onClick={() => {
+                handleMenuItem();
+                setCurAlgorithm("astar");
+                setDisableButtons(false);
+              }}
+            >
+              A*
+            </button>,
+          ]}
+        />
       </div>
 
       <div>
