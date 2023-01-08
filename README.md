@@ -8,7 +8,8 @@ This application helps visualize complex algorithms on a grid in order to unders
 This project contains:
 - TypeScript
 - Functional components and React hooks
-- TailwindCSS to stylize the components 
+- TailwindCSS to stylize the components
+- Deployment to GitHub Pages with GitHub Actions (CI/CD)
 
 ## Visualization of A* Search
 ![](https://github.com/rt-rocket/pathfinding-visualizer/blob/main/public/astar.gif)
