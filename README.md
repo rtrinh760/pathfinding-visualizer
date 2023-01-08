@@ -31,29 +31,29 @@ A graph traversal / path-searching algorithm that is modified from Djikstra's al
 
 ## Initial Setup
 
+Initializing with Vite:
 ```bash
 npm create vite@latest pathfinder -- --template react-ts
 cd pathfinder
 ```
 
-# To install dependencies:
+To install dependencies:
 ```bash
 npm install
-npm run dev
 ```
 
-# https://tailwindcss.com/docs/installation
+TailwindCSS ([Installation](https://tailwindcss.com/docs/installation))
 ```bash
 npm install -D tailwindcss
 npx tailwindcss init
 ```
 
-# Add to tailwind.config.cjs: "./src/components/Pathfinder.tsx" and "./src/components/Cell.tsx"
+Add to tailwind.config.cjs: "./src/components/Pathfinder.tsx" and "./src/components/Cell.tsx"
 
 
 ## Running the App 
 
-# To run the development version:
+To run the development version:
 ```bash
 npm run dev
 ```
@@ -62,7 +62,7 @@ Open http://localhost:5173 to view
 
 ## Testing the App Locally
 
-# To run the build version and preview:
+To run the build version and preview:
 ```bash
 npm run build
 npm run preview
