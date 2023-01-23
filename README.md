@@ -6,7 +6,7 @@ Inspired by Clément's Pathfinding Visualizer, This React app set up with Vite v
 This application helps visualize complex algorithms on a grid in order to understand how they work in practice. Use the algorithm dropdown menu before running to select the algorithm.
 
 This project contains:
-- TypeScript
+- TypeScript, Vite, and Node.js
 - Functional components and React hooks
 - TailwindCSS to stylize the components
 - Deployment to GitHub Pages with GitHub Actions (CI/CD)
