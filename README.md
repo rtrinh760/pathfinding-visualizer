@@ -1,6 +1,6 @@
 # Pathfinding Visualizer with React-TS
 
-DEMO: https://rt-rocket.github.io/pathfinding-visualizer/
+DEMO: https://rtrinh760.github.io/pathfinding-visualizer/
 
 Inspired by Clément's Pathfinding Visualizer, This React app set up with Vite visualizes the various traversal algorithms such as Depth-First-Search, Breadth-First-Search, and A* Search.
 This application helps visualize complex algorithms on a grid in order to understand how they work in practice. Use the algorithm dropdown menu before running to select the algorithm.
