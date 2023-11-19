@@ -97,6 +97,7 @@ const Pathfind = () => {
           : cell.isWall()
           ? "cell-wall"
           : "";
+
         document.getElementById(
           `cell-${cell.row}-${cell.col}`
         )!.className = `cell ${cellType}`;
@@ -262,5 +263,12 @@ const Pathfind = () => {
 };
 
 export function Pathfinder() {
-  return <div className="grid">{<Pathfind />}</div>;
+  return (
+    <div>
+      <div className="grid">{<Pathfind />}</div>
+      <p className="text-center text-black text-2xl pt-10">
+        <a href="https://github.com/rtrinh760">Made with ❤️ by Richard Trinh</a>
+      </p>
+    </div>
+  );
 }
