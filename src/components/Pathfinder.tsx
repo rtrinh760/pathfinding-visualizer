@@ -266,7 +266,7 @@ export function Pathfinder() {
   return (
     <div>
       <div className="grid">{<Pathfind />}</div>
-      <p className="text-center text-black text-2xl pt-10">
+      <p className="text-center text-black text-2xl pt-1">
         <a href="https://github.com/rtrinh760">Made with ❤️ by Richard Trinh</a>
       </p>
     </div>
